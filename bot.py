@@ -12,7 +12,7 @@ class Bot(commands.Bot):
         )
 
         try:
-            self.load_extension('cogs.cog')
+            self.load_extension('cog')
         except Exception as exc:
             print(f'Could not load extension due to {exc.__class__.__name__}: {exc}')
 

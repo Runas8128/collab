@@ -112,5 +112,3 @@ class DB:
                 'WHERE partNo=:partNo',
                 { 'partNo': partNo }
             )
-
-db = DB()
