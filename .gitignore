@@ -32,3 +32,6 @@ config.py
 
 # test files
 test/
+
+# database file
+.db

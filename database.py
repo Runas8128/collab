@@ -28,6 +28,11 @@ class DB:
                     vfx INTEGER, vfxSubmit INTEGER
                 )'''
             )
+            cur.execute(
+                '''CREATE TABLE IF NOT EXISTS ProgMsgID (
+                    ID INTEGER PRIMARY KEY
+                )'''
+            )
     
     def init(self):
         with self.dbCon as cur:
@@ -41,12 +46,28 @@ class DB:
                 ]
             )
     
+    def setProgMsgID(self, newID: int):
+        with self.dbCon as cur:
+            if cur.execute('SELECT 1 FROM ProgMsgID').fetchone():
+                cur.execute("UPDATE ProgMsgID SET ID=?", (newID))
+            else:
+                cur.execute("INSERT INTO ProgMsgID VALUES (?)", (newID))
+    
+    def getProgMsgID(self) -> int:
+        with self.dbCon as cur:
+            rst = cur.execute('SELECT 1 FROM ProgMsgID').fetchone()
+            return rst[0] if rst else 0
+
     def close(self):
         self.dbCon.close()
     
+    def getData(self):
+        with self.dbCon as cur:
+            return cur.execute(
+                'SELECT * FROM TremENDous'
+            ).fetchall()
+    
     def isExistPart(self, cur: sqlite3.Cursor, partNo: int) -> bool:
-        if partNo < 1 or partNo > 5: return False
-
         return bool(cur.execute(
             'SELECT 1 FROM TremENDous'
             'WHERE partNo=:partNo',
