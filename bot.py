@@ -11,11 +11,10 @@ class Bot(commands.Bot):
             **kwargs
         )
 
-        for cog in config.cogs:
-            try:
-                self.load_extension(cog)
-            except Exception as exc:
-                print(f'Could not load extension {cog} due to {exc.__class__.__name__}: {exc}')
+        try:
+            self.load_extension('cogs.cog')
+        except Exception as exc:
+            print(f'Could not load extension due to {exc.__class__.__name__}: {exc}')
 
     @commands.Cog.listener()
     async def on_ready(self):
