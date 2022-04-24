@@ -65,7 +65,7 @@ class Cog(commands.Cog):
         self.db.setProgMsgID(self.progMsg.id)
 
         message: discord.Message = ctx.message
-        message.add_reaction('👍')
+        await message.add_reaction('👍')
     
     @commands.command(name="파트")
     async def editTime(

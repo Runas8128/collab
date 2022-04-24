@@ -49,9 +49,9 @@ class DB:
     def setProgMsgID(self, newID: int):
         with self.dbCon as cur:
             if cur.execute('SELECT 1 FROM ProgMsgID').fetchone():
-                cur.execute("UPDATE ProgMsgID SET ID=?", (newID))
+                cur.execute("UPDATE ProgMsgID SET ID = :newID", {'newID': newID})
             else:
-                cur.execute("INSERT INTO ProgMsgID VALUES (?)", (newID))
+                cur.execute("INSERT INTO ProgMsgID VALUES (:newID)", {'newID': newID})
     
     def getProgMsgID(self) -> int:
         with self.dbCon as cur:
@@ -70,7 +70,7 @@ class DB:
     def isExistPart(self, cur: sqlite3.Cursor, partNo: int) -> bool:
         return bool(cur.execute(
             'SELECT 1 FROM TremENDous'
-            'WHERE partNo=:partNo',
+            'WHERE partNo = :partNo',
             { 'partNo': partNo }
         ).fetchone())
     
@@ -81,8 +81,8 @@ class DB:
             
             cur.execute(
                 'UPDATE TremENDous'
-                'SET time=:time'
-                'WHERE partNo=:partNo',
+                'SET time = :time'
+                'WHERE partNo = :partNo',
                 { 'time': value, 'partNo': partNo }
             )
     
@@ -93,8 +93,8 @@ class DB:
             
             cur.execute(
                 'UPDATE TremENDous'
-                'SET track=:track, trackSubmit=0'
-                'WHERE partNo=:partNo',
+                'SET track = :track, trackSubmit = 0'
+                'WHERE partNo = :partNo',
                 { 'track': newMemberID, 'partNo': partNo }
             )
     
@@ -105,8 +105,8 @@ class DB:
             
             cur.execute(
                 'UPDATE TremENDous'
-                'SET vfx=:vfx, vfxSubmit=0'
-                'WHERE partNo=:partNo',
+                'SET vfx = :vfx, vfxSubmit = 0'
+                'WHERE partNo = :partNo',
                 { 'vfx': newMemberID, 'partNo': partNo }
             )
     
@@ -117,8 +117,8 @@ class DB:
             
             cur.execute(
                 'UPDATE TremENDous'
-                'SET chartSubmit=1'
-                'WHERE partNo=:partNo',
+                'SET chartSubmit = 1'
+                'WHERE partNo = :partNo',
                 { 'partNo': partNo }
             )
     
@@ -129,7 +129,7 @@ class DB:
             
             cur.execute(
                 'UPDATE TremENDous'
-                'SET vfxSubmit=1'
-                'WHERE partNo=:partNo',
+                'SET vfxSubmit = 1'
+                'WHERE partNo = :partNo',
                 { 'partNo': partNo }
             )
