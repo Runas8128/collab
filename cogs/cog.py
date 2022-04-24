@@ -1,5 +1,5 @@
-from discord.ext import commands
 import discord
+from discord.ext import commands
 
 class Cog(commands.Cog):
     """The description for Cog goes here."""
@@ -8,7 +8,7 @@ class Cog(commands.Cog):
         self.bot = bot
         self.CollabNotice: discord.TextChannel = None
     
-    @commads.Cog.listener()
+    @commands.Cog.listener()
     async def on_ready(self):
         self.CollabNotice = self.bot.get_channel(967365739227013140)
     

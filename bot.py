@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from discord.ext import commands
 import discord
+from discord.ext import commands
 import config
 
 class Bot(commands.Bot):
