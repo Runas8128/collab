@@ -54,7 +54,7 @@ class Cog(commands.Cog):
         if msgID != 0:
             self.progMsg = self.CollabNotice.fetch_message(msgID)
     
-    @commands.Cog.listener()
+    @commands.command()
     @commands.is_owner()
     async def init(self, ctx: commands.Context):
         self.db.init()
