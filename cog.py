@@ -13,23 +13,12 @@ class Cog(commands.Cog):
     
     @commands.command()
     async def exit(self):
+        self.db.close()
         self.exit()
     
     @commands.Cog.listener()
     async def on_ready(self):
         self.CollabNotice = self.bot.get_channel(967365739227013140)
-    
-    @commands.Cog.listener()
-    async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
-        channel: discord.TextChannel = self.bot.get_channel(payload.channel_id)
-        message: discord.Message = channel.fetch_message(payload.message_id)
-        await message.pin()
-    
-    @commands.Cog.listener()
-    async def on_raw_reaction_remove(self, payload: discord.RawReactionActionEvent):
-        channel: discord.TextChannel = self.bot.get_channel(payload.channel_id)
-        message: discord.Message = channel.fetch_message(payload.message_id)
-        await message.unpin()
     
     
 

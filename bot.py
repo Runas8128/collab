@@ -19,6 +19,18 @@ class Bot(commands.Bot):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Logged on as {self.user} (ID: {self.user.id})')
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
+        channel: discord.TextChannel = self.bot.get_channel(payload.channel_id)
+        message: discord.Message = channel.fetch_message(payload.message_id)
+        await message.pin()
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload: discord.RawReactionActionEvent):
+        channel: discord.TextChannel = self.bot.get_channel(payload.channel_id)
+        message: discord.Message = channel.fetch_message(payload.message_id)
+        await message.unpin()
 
 bot = Bot()
 
